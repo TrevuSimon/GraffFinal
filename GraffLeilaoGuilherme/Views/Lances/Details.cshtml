@@ -1,0 +1,42 @@
+﻿@model GraffLeilaoGuilherme.Models.Lance
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Lance</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.pessoa.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.pessoa.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.produto.nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.produto.nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lanceValor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lanceValor)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.lanceID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

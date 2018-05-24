@@ -1,0 +1,62 @@
+﻿@model IEnumerable<GraffLeilaoGuilherme.Models.Lance>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+
+@using (Html.BeginForm())
+{
+    <table>
+        <tr>
+            <th>
+                <p>Filtrar por nome:</p><input type="text" name="TextBox1" class="form-control" />
+            </th>
+            <th>
+                <input type="submit" name="submit" class="btn btn-default" />
+            </th>
+        </tr>
+    </table>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            <p>Pessoa</p>
+        </th>
+        <th>
+            <p>Produto</p>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lanceValor)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.pessoa.nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.produto.nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lanceValor)
+            </td>
+            <td>
+                @Html.ActionLink("Mudar", "Edit", new { id = item.lanceID }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.lanceID }) |
+                @Html.ActionLink("Apagar", "Delete", new { id = item.lanceID })
+            </td>
+        </tr>
+    }
+
+</table>
+<p>Maior Lance: @ViewBag.valorMax</p>

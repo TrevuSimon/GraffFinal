@@ -1,0 +1,43 @@
+﻿@model IEnumerable<GraffLeilaoGuilherme.Models.Produto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Cadastrar novo", "Create", new { area = "" }, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.valor)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.valor)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.produtoID }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.produtoID }) |
+            @Html.ActionLink("Apagar", "Delete", new { id=item.produtoID })
+        </td>
+        <td>
+            @Html.ActionLink("Fazer um lance", "Create", "Lances", new {id=item.produtoID}, new { @class = "btn btn-primary btn-sm" })
+        </td>
+    </tr>
+}
+
+</table>
