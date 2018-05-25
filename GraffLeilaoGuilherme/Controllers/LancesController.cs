@@ -122,6 +122,8 @@ namespace GraffLeilaoGuilherme.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Lance lance = db.Lances.Find(id);
+            lance.pessoa = db.Pessoas.Find(lance.pessoaID);
+            lance.produto = db.Produtos.Find(lance.produtoID);
             if (lance == null)
             {
                 return HttpNotFound();
@@ -157,6 +159,8 @@ namespace GraffLeilaoGuilherme.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Lance lance = db.Lances.Find(id);
+            lance.pessoa = db.Pessoas.Find(lance.pessoaID);
+            lance.produto = db.Produtos.Find(lance.produtoID);
             if (lance == null)
             {
                 return HttpNotFound();
