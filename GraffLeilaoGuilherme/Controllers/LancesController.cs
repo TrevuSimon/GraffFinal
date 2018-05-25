@@ -20,14 +20,29 @@ namespace GraffLeilaoGuilherme.Controllers
         {
             if(TextBox1 != null)
             {
-                ViewBag.valorMax = db.Lances.Max(p => p.lanceValor);
+                try
+                {
+                    ViewBag.valorMax = db.Lances.Max(p => p.lanceValor);
+                }
+                catch
+                {
+
+                }
                 ViewBag.Error = TempData["error"];
                 var lances = db.Lances.Where(l => l.pessoa.nome.Contains(TextBox1)).Include(l => l.pessoa).Include(l => l.produto).ToList();
                 return View(lances);
             }
             else
             {
-                ViewBag.valorMax = db.Lances.Max(p => p.lanceValor);
+                try
+                {
+                    ViewBag.valorMax = db.Lances.Max(p => p.lanceValor);
+                }
+                catch
+                {
+
+                }
+                 
                 ViewBag.Error = TempData["error"];
                 var lances = db.Lances.Include(l => l.pessoa).Include(l => l.produto);
                 return View(lances.ToList());
@@ -55,15 +70,24 @@ namespace GraffLeilaoGuilherme.Controllers
             return View(lance);
         }
 
+        public void CreateViewBag(int? id)
+        {
+            ViewBag.valorMax = db.Lances.Where(p => p.produtoID == id).Select(c => c.lanceValor).DefaultIfEmpty(0).Max();
+            var nome = db.Produtos.Where(a => a.produtoID == id).Select(a => a.nome).FirstOrDefault<String>();
+            var valor = db.Produtos.Where(a => a.produtoID == id).Select(a => a.valor).FirstOrDefault<float>();
+            ViewBag.nomeProduto = nome;
+            ViewBag.valorProduto = valor;
+            ViewBag.idValue = id;
+        }
+
         // GET: Lances/Create
         public ActionResult Create(int? id)
         {
-            if (id != null) { ViewBag.valorMax = db.Lances.Where(p => p.produtoID == id).Select(c => c.lanceValor).DefaultIfEmpty(0).Max();}
-            
+            CreateViewBag(id);
+
             ViewBag.pessoaID = new SelectList(db.Pessoas, "pessoaID", "nome");
             ViewBag.produtoID = new SelectList(db.Produtos, "produtoID", "nome");
-            var nome = db.Produtos.Where(a => a.produtoID == id).Select(a => a.nome).FirstOrDefault<String>();
-            ViewBag.nomeProduto = nome;
+
             return View();
         }
 
@@ -72,8 +96,10 @@ namespace GraffLeilaoGuilherme.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "lanceID,pessoaID,produtoID,lanceValor")] Lance lance)
+        public ActionResult Create([Bind(Include = "lanceID,pessoaID,produtoID,lanceValor")] Lance lance, int? id)
         {
+            CreateViewBag(id);
+
             if (ModelState.IsValid)
             {
                 db.Lances.Add(lance);
