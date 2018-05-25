@@ -85,8 +85,9 @@ namespace GraffLeilaoGuilherme.Controllers
         {
             CreateViewBag(id);
 
+
             ViewBag.pessoaID = new SelectList(db.Pessoas, "pessoaID", "nome");
-            ViewBag.produtoID = new SelectList(db.Produtos, "produtoID", "nome");
+            ViewBag.produtoID = new SelectList(db.Produtos, "produtoID", "nome",id);
 
             return View();
         }

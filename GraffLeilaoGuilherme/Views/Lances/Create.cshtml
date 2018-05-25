@@ -6,7 +6,7 @@
 <script type="text/javascript">
     function validateMyForm() {
         var value = document.getElementById('@Html.Id("lanceValor")').value;
-        if (@ViewBag.valorMax > value && @ViewBag.valorProduto > value) {
+        if (@ViewBag.valorProduto >= value || @ViewBag.ValorMax >= value) {
             alert("Valor tem que ser que [Maior lance: "+@ViewBag.valorMax+"] e [ValorProduto: "+ @ViewBag.valorProduto+"]");
             return false;
         }
@@ -29,7 +29,6 @@
     <h1>Produto: @ViewBag.nomeProduto</h1>
     <p>Maior Lance: <span class="label label-default">@ViewBag.valorMax</span></p>
     <p>Valor: <span class="label label-default">@ViewBag.valorProduto</span></p>
-    @ViewBag.idValue
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.pessoaID, "pessoa", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -39,16 +38,19 @@
         </div>
     </div>
 
+
     <div class="form-group">
-        @Html.LabelFor(model => model.produtoID, "Produto", htmlAttributes: new { @class = "control-label col-md-2", })
+        @Html.LabelFor(model => model.produtoID, "Produto", htmlAttributes: new { @class = "control-label col-md-2", style = "display: none;" })
         <div class="col-md-10">
-            @Html.DropDownList("produtoID", null, htmlAttributes: new { @class = "form-control", @select = ViewBag.idValue })
+            @Html.DropDownList("produtoID", null, htmlAttributes: new { @class = "form-control", style = "display: none;" })
             @Html.ValidationMessageFor(model => model.produtoID, "", new { @class = "text-danger", })
-
-            @*@Html.Hidden("produtoID", null, htmlAttributes: new { @class = "form-control", })*@
-
         </div>
     </div>
+
+    @*<input type="hidden" name="produtoID" value="@ViewBag.idValue" class="form-control" disabled />*@
+    @*@Html.ValidationMessageFor(model => model.produtoID, "", new { @class = "text-danger", })*@
+
+
 
     <div class="form-group">
         @Html.LabelFor(model => model.lanceValor, htmlAttributes: new { @class = "control-label col-md-2" })

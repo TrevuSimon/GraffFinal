@@ -13,9 +13,9 @@ namespace GraffLeilaoGuilherme.DAL
         {
             var pessoas = new List<Pessoa>
             {
-                new Pessoa{pessoaID=0,nome="Jao",idade=18},
+                new Pessoa{pessoaID=0,nome="Joao",idade=18},
                 new Pessoa{pessoaID=1,nome="Maria",idade=25},
-                new Pessoa{pessoaID=2,nome="Kred",idade=23},
+                new Pessoa{pessoaID=2,nome="Jose",idade=23},
             };
 
             pessoas.ForEach(s => context.Pessoas.Add(s));
@@ -23,8 +23,8 @@ namespace GraffLeilaoGuilherme.DAL
 
             var produtos = new List<Produto>
             {
-                new Produto{produtoID=0,nome="Cristal",valor=1000},
-                new Produto{produtoID=1,nome="Colar de cristal",valor=500}
+                new Produto{produtoID=0,nome="Relogio",valor=100},
+                new Produto{produtoID=1,nome="Celular",valor=500}
             };
 
             produtos.ForEach(s => context.Produtos.Add(s));
